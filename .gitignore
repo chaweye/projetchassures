@@ -1,0 +1,7 @@
+*logs*
+*cache*
+app/config/parameters.yml
+.buildpath
+.settings
+.project
+web/bundles/*
