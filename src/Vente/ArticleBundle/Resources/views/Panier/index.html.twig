@@ -1,0 +1,67 @@
+{% extends '::base.html.twig' %}
+{% block menu %}
+	{% render 'VenteArticleBundle:Default:menu' with {'current_gamme_url':''} %}
+{% endblock %}
+{% block body %}
+<div class="row-fluid panier">
+	<div class="span2"></div>
+	<div class="span8">
+	<table class="table">
+		<thead>
+			<th>Chaussure</th>
+			<th>Quantité</th>
+			<th>Prix unit.</th>
+			<th>Total</th>
+			<th></th>
+		</thead>
+		<tbody>
+			{% set Total = 0 %}
+			{% for Item in Panier.items %}
+				{% set Chaussure = Item.article %}
+				{% set SousTotal = Item.quantite * Chaussure.prix %}
+				{% set Total = Total + SousTotal %}
+				<tr>
+					<td>
+						<span class="thumbnail">
+	      					<img src="{{ asset('/photos/'~Chaussure.photo) }}" alt="image{{  Chaussure.numeroSerie  ~ Chaussure.couleurs.get(0) }}" width="80px">
+	    				</span>
+	    			</td>
+	    			<td>{{ Item.quantite }}</td>
+	    			<td>{{ Chaussure.prix | number_format(2,',',' ' )}} &euro;</td>
+	    			<td>{{ SousTotal | number_format(2,',',' ' ) }} &euro;</td>
+	    			<td>
+	    				<form action="{{ path('route_panier_remove') }}" method="POST" id="supprimer-chaussure">
+	    					<input type="hidden" name="id" value="{{ Chaussure.id }}"/>
+	    					<div class="btn-group">
+  								<span class="btn btn-primary"><i class="icon-remove icon-white"></i></span>
+  							</div>
+	    				</form>
+	    			</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<td colspan="3">
+				<a href="{{ path('route_commande') }}"> <button class="btn btn-success">Commander</button></a>
+			</td>
+			<td >
+				Total : {{ Total | number_format(2,',',' ' ) }} &euro;
+			</td>
+			
+		</tfoot>
+	</table>
+	</div>
+	<div class="span2"></div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+<!--
+$('#supprimer-chaussure .btn-group').bind('click',function(){
+	$('#supprimer-chaussure').submit();
+});
+//-->
+</script>
+
+{% endblock %}
+

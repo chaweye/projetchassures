@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+{% block menu %}
+	{% render 'VenteArticleBundle:Default:menu' with {'current_gamme_url':''} %}
+{% endblock %}
+{% block body %}
+<div class="row-fluid">
+	<ul class="thumbnails">
+    	{% for Chaussure in Chaussures %}
+    	<li class="span2">
+    		<div class="thumbnail">
+    			<a href="{{ path('route_vue_article',{'gamme_url':Chaussure.modele.gamme.url,'modele_url':Chaussure.modele.url,'chaussure_url':Chaussure.url}) }}"><img src="{{ asset('/photos/'~Chaussure.photo) }}" alt="image{{  Chaussure.numeroSerie  ~ Chaussure.couleurs.get(0) }}"></a>
+    			<h5 style="text-align: center;">{{Chaussure.modele.titre  ~ Chaussure.couleurs.get(0) }}</h5>
+	        	<p style="text-align: center;">{{ Chaussure.prix | number_format(2,',',' ' )}} &euro;</p>
+			</div>
+		</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+<!--
+//-->
+</script>
+
+{% endblock %}
+

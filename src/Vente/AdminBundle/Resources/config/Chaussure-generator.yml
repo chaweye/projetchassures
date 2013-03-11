@@ -1,0 +1,41 @@
+generator: admingenerator.generator.doctrine
+params:
+  model: Vente\ArticleBundle\Entity\Chaussure
+  namespace_prefix: Vente
+  bundle_name: AdminBundle
+  fields: ~
+
+builders:
+  list:
+    params:
+      title: List for AdminBundle
+      display: [pointure,modele,prix,matiere,numero_serie,quantite,url]
+      max_per_page: 100
+      actions:
+        new: ~
+      object_actions:
+        edit: ~
+        delete: ~
+  filters:
+    params:
+      display: [pointure,modele,prix,matiere,quantite,url,marque,couleurs]
+  new:
+    params:
+      title: New object for AdminBundle
+      display: [pointure,modele,prix,matiere,numero_serie,quantite,url,photo,description,courte_description,marque,couleurs]
+      actions:
+        list: ~
+  edit:
+    params:
+      title: "You're editing the object \"%object%\"|{ %object%: Chaussure.numeroSerie }|"
+      display: [pointure,modele,prix,matiere,numero_serie,quantite,url,photo,description,courte_description,marque,couleurs]
+      actions:
+        list: ~
+  show:
+    params:
+      title: "You're viewing the object \"%object%\"|{ %object%: Chaussure.numeroSerie}|"
+      display: [pointure,modele,prix,matiere,numero_serie,quantite,url,photo,description,courte_description,marque,couleurs]
+      actions:
+        list: ~
+        new: ~
+  delete: ~

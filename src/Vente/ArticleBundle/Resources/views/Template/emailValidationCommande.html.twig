@@ -1,0 +1,36 @@
+<p>Bonjour {{ User.nom }} {{ User.prenom }},</p>
+</br>
+<p>Votre commande a été enregistrée, elle sera expédiée dans un délai de 48h maximum.</p>
+<p>Recapitulatif de votre commande : </p>
+<table class="table">
+		<thead>
+			<th>Chaussure</th>
+			<th>Quantité</th>
+			<th>Prix unit.</th>
+			<th>Total</th>
+		</thead>
+		<tbody>
+			{% set Total = 0 %}
+			{% for Item in Panier.items %}
+				{% set Chaussure = Item.article %}
+				{% set SousTotal = Item.quantite * Chaussure.prix %}
+				{% set Total = Total + SousTotal %}
+				<tr>
+					<td>
+						{{ Chaussure.modele.gamme.titre }} - {{ Chaussure.modele.titre }} - {{ Chaussure.numeroSerie}}
+	    			</td>
+	    			<td>{{ Item.quantite }}</td> 
+	    			<td>{{ Chaussure.prix | number_format(2,',',' ' )}} &euro;</td>
+	    			<td>{{ SousTotal | number_format(2,',',' ' ) }} &euro;</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<td colspan="4">
+				Total : {{ Total | number_format(2,',',' ' ) }} &euro;
+			</td>
+			
+		</tfoot>
+	</table>
+<br/>
+<p>Merci de votre commande et à bientôt sur notre site !</p>

@@ -1,0 +1,67 @@
+@CHARSET "UTF-8";
+
+body {
+	height: 1000px;
+	background-image: linear-gradient(bottom, rgb(48, 48, 133) 49%,
+		rgb(48, 48, 133) 75% );
+	background-image: -o-linear-gradient(bottom, rgb(48, 48, 133) 49%,
+		rgb(48, 48, 133) 75% );
+	background-image: -moz-linear-gradient(bottom, rgb(48, 48, 133) 49%,
+		rgb(48, 48, 133) 75% );
+	background-image: -webkit-linear-gradient(bottom, rgb(48, 48, 133) 49%,
+		rgb(48, 48, 133) 75% );
+	background-image: -ms-linear-gradient(bottom, rgb(48, 48, 133) 49%,
+		rgb(48, 48, 133) 75% );
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.49, rgb(48,
+		48, 133) ), color-stop(0.75, rgb(48, 48, 133) ) );
+}
+
+.center {
+	text-align: center;
+}
+
+.navbar-inner ul.nav li {
+	width: 159px;
+}
+
+.btn.add-on {
+	height: 30px;
+}
+
+.span6 .form-search {
+	margin-bottom: 40px;
+}
+
+.content {
+	min-height: 400px;
+	padding: 5px;
+	background: white;
+	-webkit-border-bottom-right-radius: 15px;
+	-webkit-border-bottom-left-radius: 15px;
+	-moz-border-radius-bottomright: 15px;
+	-moz-border-radius-bottomleft: 15px;
+	border-bottom-right-radius: 15px;
+	border-bottom-left-radius: 15px;
+}
+
+.thumbnails .span2 .thumbnail h5,.thumbnails p {
+	text-align: center;
+}
+
+.header .dropdown {
+	list-style-type: none;
+}
+
+.header {
+	margin-top: 10px;
+}
+
+.fos_user_content {
+	text-align: center;
+	border: solid 1px lightgrey;
+	margin: 10px 200px;
+}
+
+.panier td,.panier th {
+	text-align: center;
+}

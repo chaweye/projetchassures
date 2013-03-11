@@ -1,0 +1,58 @@
+{% extends '::base.html.twig' %}
+{% block menu %}
+	{% render 'VenteArticleBundle:Default:menu' with {'current_gamme_url':Gamme.url} %}
+{% endblock %}
+{% block body %}
+{% if Gamme is defined and Gamme is not null %}
+<div class="tabbable">
+	<ul class="nav nav-tabs" id="modele-nav">
+	{% if CurrentModele is not null %}
+		{% for Modele in Gamme.modeles %}
+			<li {{ (CurrentModele.id == Modele.id)?'class="active"':'' }}>
+				<a href="#tab{{ Modele.id }}" {{ (CurrentModele.id == Modele.id)?'class="active"':'' }} data-toggle="tab">{{ Modele.titre }}</a>
+			</li>
+		{% endfor %}
+	{% else %}
+		{% for key,Modele in Gamme.modeles %}
+			<li {{ (key == 0)?'class="active"':'' }}>
+				<a href="#tab{{ Modele.id }}" {{ (key == 0)?'class="active"':'' }} data-toggle="tab">{{ Modele.titre }}</a>
+			</li>
+		{% endfor %}
+	{% endif %}
+	</ul>
+	<div class="tab-content">
+	{% for Modele in Gamme.modeles %}
+    	<div class="tab-pane" id="tab{{ Modele.id }}">
+    		<div class="row-fluid">
+	    		<ul class="thumbnails">
+	      		{% for Chaussure in Modele.chaussures %}
+					  <li class="span2">
+					    <div class="thumbnail">
+					      <a href="{{ path('route_vue_article',{'gamme_url':Gamme.url,'modele_url':Modele.url,'chaussure_url':Chaussure.url}) }}"><img src="{{ asset('/photos/'~Chaussure.photo) }}" alt="image{{  Chaussure.numeroSerie  ~ Chaussure.couleurs.get(0) }}"></a>
+					      <h5 style="text-align: center;">{{Modele.titre  ~ Chaussure.couleurs.get(0) }}</h5>
+					      <p style="text-align: center;">{{ Chaussure.prix | number_format(2,',',' ' )}} &euro;</p>
+					    </div>
+					  </li>
+	      		{% endfor %}
+      	  		</ul>
+      	  	</div>
+    	</div>
+    {% endfor %}
+  	</div>
+</div>
+{% else %}
+<h1> cette page n'existe pas !</h1>
+{% endif %}
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript"> 
+$(document).ready(function(){
+	$('.tabbable .active').tab('show');
+	$('a[href^="#"]').click(function(e) {
+		e.preventDefault();
+			$(this).tab('show');
+	}); 
+});
+</script>
+        {% endblock %}
+

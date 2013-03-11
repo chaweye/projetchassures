@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+{% block menu %}
+	{% render 'VenteArticleBundle:Default:menu' with {'current_gamme_url':Gamme.url} %}
+{% endblock %}
+{% block body %}
+<div class="row-fluid">
+	<ul class="thumbnails span4">
+	  <li class="span12">
+	    <a href="#" class="thumbnail">
+	      <img src="{{ asset('/photos/'~Chaussure.photo) }}" alt="image{{  Chaussure.numeroSerie  ~ Chaussure.couleurs.get(0) }}">
+	    </a>
+	  </li>
+	</ul>
+	<div class="span4">
+		<table class="table">
+	        <tbody>  
+	          <tr>
+	          	<th>Prix</th>
+	          	<td>{{ Chaussure.prix | number_format(2,',',' ' )}} &euro;</td>   
+	          </tr>
+	          <tr>
+	          	<th>Modèle</th>
+	          	<td>{{ Modele.titre }}</td>   
+	          </tr> 
+	          <tr>
+	          	<th>Gamme</th>
+	          	<td>{{ Gamme.titre }}</td>   
+	          </tr>
+	          <tr>
+	          	<th>Quantité</th>
+	          	<td>{{ Chaussure.quantite }}</td>   
+	          </tr>
+	          <tr>
+	          	<th>Couleur</th>
+	          	<td>{# {{ Chaussure.couleurs.get(0)}} #}</td>   
+	          </tr>    
+	        </tbody>
+		</table>
+		<div class="row-fluid">
+			<div class="span6">
+				<a href="{{ path('route_gamme', {'gamme_url':Gamme.url,'modele_url':Modele.url}) }}"><button class="btn">Retour</button></a>
+			</div>
+			<form action="{{ path('route_panier_add') }}" method="POST">
+				<div class="span6">
+					<input type="hidden" value="{{ Chaussure.id }}" name="id">
+					<input type="hidden" value="1" name="quantite">
+					<button type="submit" class="btn btn-success">Ajouter au panier</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="span4">
+	<p>
+			<b>{{ Chaussure.courtedescription }}</b>
+		</p>
+		<p>
+			{{ Chaussure.description }}
+		</p>
+	</div>
+</div>
+{% endblock %}
+{% block javascripts %}
+{% endblock %}
+

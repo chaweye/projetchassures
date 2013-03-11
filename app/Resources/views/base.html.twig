@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Vente de chaussures{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/ventearticle/css/bootstrap.min.css') }}" media="all"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/ventearticle/css/vente-chaussures.css') }}" media="all"/>
+        
+		{% block stylesheets %}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+	<div class="container">
+    	<div class="row-fluid header">
+    			<div class="span5">
+ 					<div class="pull-right panier">
+ 						<p >
+ 							<a href="/panier/monpanier">
+								<img src="/photos/shop_bag.png" width="50" alt="Panier" class="images">
+							</a>
+						</p>
+ 					</div>
+ 				</div>
+ 				{% set search =  ''%}
+ 				{% for flashMessage in app.session.flashbag.get('searchkeys') %}
+				        {% set search = search ~ flashMessage %}
+				{% endfor %}
+				{% if search == '' %}
+					{% set search =  'Recherche...'%}
+				{% endif %}
+ 				
+			 	<div class="span5 ">
+			 			<form class="form-search text-center" action="{{ path('route_search') }}" method="post">
+							<div class="text-center input-append">
+							    <input type="text"  name="search" class=" search-query input-medium" 
+							    placeholder="{{ search }}">
+				    			<button type="submit" class="btn add-on"><i class="icon-search"></i></button>
+			  				</div>
+						</form>
+ 					</div>
+ 				
+ 				<div class="span2">
+ 				<li class="dropdown">
+		           	<a href="#" class="dropdown-toggle pull-right" data-toggle="dropdown"><img src="/photos/Icon-user.png" width="40" alt="Panier" class="images"></a>
+		             <ul class="dropdown-menu">
+		             	   {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+				                <li><a href="{{ path('fos_user_profile_edit') }}">{{  app.user.username}}</a></li>
+				                <li class="divider"></li>
+				                <li><a href="{{ path('fos_user_change_password') }}">Nouveau mot de passe</a></li>
+				                <li><a href="{{ path('fos_user_security_logout') }}">
+				                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+				                </a></li>
+				            {% else %}
+				            	<li><a href="{{ path('fos_user_security_login') }}">Mon compte</a></li>
+				            	<li><a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié</a></li>
+		                 		 <li><a href="{{ path('fos_user_registration_register') }}">Créer un compte</a></li>
+				            {% endif %}
+				            
+		             </ul>
+				</li>
+				</div>
+			</div>
+		{% block menu %}
+			{% render 'VenteArticleBundle:Default:menu'  with {'current_gamme_url':''}%}
+		{% endblock %}
+		{% for message in app.session.flashbag.get('notice') %}
+	        <div class="alert">
+		            {{ message|trans({}, 'FOSUserBundle') }}
+		            <a class="close" data-dismiss="alert" href="#">&times;</a>
+	        </div>
+	   {% endfor %}
+		<div class="content">
+        {% block body %}
+        
+        {% endblock %}
+        </div>
+        <div class="center">
+	   			<p> © 2012 Tous Droits Réservés - MAMAN Habibou</p> 
+	   	</div>
+   	</div> <!-- /container -->
+    <script type="text/javascript" src="{{ asset('bundles/ventearticle/js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/ventearticle/js/bootstrap.min.js') }}"></script>
+        {% block javascripts %}
+        {% endblock %}
+</body>
+</html>
